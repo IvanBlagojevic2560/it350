@@ -1,0 +1,31 @@
+1.
+SELECT ID_recept, sastojci.kolicina ,sastojci.imeSastojka,sladoled.ime FROM `recept` 
+join `sastojci` on 
+sastojci.`ID_sastojak` = recept.`ID_sastojak` 
+join `sladoled` on 
+recept.`ID_sladoled`= sladoled.`ID_sladoled` 
+WHERE sladoled.ime= "rumenko"
+2.
+SELECT prodajnaLokacija.adresa,radnik.imeRadnika,sum(evidencija.`ID_prodaja`) ukupno 
+FROM `evidencija` join sladoled 
+on sladoled.`ID_sladoled` = evidencija.`ID_sladoled` 
+join prodaja
+on evidencija.`ID_prodaja` = prodaja.`ID_prodaja` 
+join radnik on 
+prodaja.id_radnik = radnik.id_radnik 
+join prodajnaLokacija on 
+radnik.id_prodajnaLokacija = prodajnaLokacija.id_prodajnaLokacija 
+WHERE radnik.imeRadnika="Milos" AND prodajnaLokacija.adresa="Aleksinac"
+
+3.SELECT radnik.jmbg,prodaja.datum, count(prodaja.id_prodaja) as ukupno
+FROM `evidencija` join prodaja
+on evidencija.`ID_prodaja` = prodaja.`ID_prodaja`
+join radnik
+on prodaja.id_radnik = radnik.id_radnik
+group by evidencija.id_sladoled
+order by ukupno desc limit 1
+4.
+SELECT imeSastojka ,sum(kolicina) ukupnaKolicina
+FROM `sastojci` 
+Group by imeSastojka
+having imeSastojka= "cokolada"

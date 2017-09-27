@@ -1,0 +1,7 @@
+SELECT radnik.jmbg,prodaja.datum, count(prodaja.id_prodaja) as ukupno
+FROM `evidencija` join prodaja
+on evidencija.`ID_prodaja` = prodaja.`ID_prodaja`
+join radnik
+on prodaja.id_radnik = radnik.id_radnik
+group by evidencija.id_sladoled
+order by ukupno desc limit 1
